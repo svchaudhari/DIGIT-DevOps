@@ -1,5 +1,5 @@
 global:
-  domain: <Domain> ## Add your Domain Name Eg: site.mydomain.com
+  domain: builds.blissvital.net ## Add your Domain Name Eg: site.mydomain.com
   setup: fullsetup
   
 cluster-configs:
@@ -17,31 +17,29 @@ jenkins:
   persistence:
     enabled: true
     aws:
-      - volumeId: "vol-060d0b69accaf9312" # Add volume id for jenkins-home
+      - volumeId: "vol-0b9a76d671463379b" # Add volume id for jenkins-home
         zone: ap-south-1b # Add respective availability_zones 
 
   oauth:
     enabled: true
     acl:
       admin:
-        - egovernments*micro-service-devops # Add github team. Members of this team gets admin access on jenkins
+        - svchaudhari*upyoguddhp # Add github team. Members of this team gets admin access on jenkins
       user:                                 # Add github team. Members of this team gets login access on jenkins
-        - egovernments*micro-service-dev
-        - egovernments*micro-service-qa
-        - egovernments*micro-service-uat
+        - svchaudhari*upyoguddhp-1
+
        
 
-  jobBuilder:    # Add jobBuilder repo's, add repo's ssh link
+  jobBuilder:
     repos: >-
-      'git@github.com:egovernments/core-services.git','git@github.com:egovernments/business-services.git'
-  deploymentJobs:  # Setup deploymentJobs ACL 
-    - name: dev    # deployment job name
-      acl: [egovernments*micro-service-dev] # GitHub team name, Members of the team get access to deployment job
-    - name: qa
-      acl: [egovernments*micro-service-qa] 
-    - name: uat
-      acl: [egovernments*micro-service-uat] 
-    
+      'https://github.com/svchaudhari/core-services.git'
+  deploymentJobs:
+    - name: ci-demo
+      acl: [svchaudhari*upyoguddhp]
+  #deployjobBuilder:
+    #repo: >-
+      #'https://github.com/svchaudhari/DIGIT-DevOps.git' 
+
        
   master:
     ingress:
@@ -70,13 +68,15 @@ cert-manager:
   clusterIssuer:
     stage:
       acme:
-        email: "<mail_id>"     # Add mail id
+        email: "svchaudhari.ext@deloitte.com"     # Add mail id
 
 cluster-autoscaler:
   namespace: jenkins
   cloudProvider: aws  
   awsRegion: ap-south-1
   autoDiscovery:
-    clusterName: <clusterName> # Add cluster name
+    clusterName: egov-cicd # Add cluster name
     tags:
-    - kubernetes.io/cluster/<clusterName> # Add cluster name
+    - kubernetes.io/cluster/egov-cicd # Add cluster name
+
+
