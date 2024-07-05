@@ -23,7 +23,7 @@ oauth:
 
 jobBuilder:
   repos: >-
-    'git@github.com:egovernments/core-services.git','git@github.com:egovernments/business-services.git'
+    'https://github.com/svchaudhari/core-services.git'
 
 master:
   httpsKeyStore:
@@ -411,7 +411,7 @@ master:
                   scm:
                     git:
                       credentialsId: "git_read"
-                      remote: "git@github.com:egovernments/CIOps.git"
+                      remote: "https://github.com/svchaudhari/CIOps.git"
                       traits:
                       - "gitBranchDiscovery"
       system-message: | 
@@ -476,7 +476,7 @@ master:
                   cps {
                       script("""library 'ci-libs'
               {{- if (eq $job.name "central-instance") }}            
-              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
+              deployer(repo:'https://github.com/svchaudhari/DIGIT-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
